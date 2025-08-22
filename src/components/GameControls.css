@@ -1,0 +1,124 @@
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 280px;
+}
+
+.control-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.control-section h3 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 5px;
+}
+
+.difficulty-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.difficulty-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+}
+
+.difficulty-btn.easy {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.difficulty-btn.easy:hover {
+  background-color: #c3e6cb;
+}
+
+.difficulty-btn.medium {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.difficulty-btn.medium:hover {
+  background-color: #ffeaa7;
+}
+
+.difficulty-btn.hard {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.difficulty-btn.hard:hover {
+  background-color: #f5c6cb;
+}
+
+.control-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.control-toggle input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+.control-toggle label {
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-btn.primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.action-btn.primary:hover {
+  background-color: #0056b3;
+}
+
+.action-btn.secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.action-btn.secondary:hover {
+  background-color: #545b62;
+}
+
+.action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -1,0 +1,82 @@
+.sudoku-cell {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  user-select: none;
+  position: relative;
+}
+
+.sudoku-cell:hover {
+  background-color: #f0f0f0;
+}
+
+.sudoku-cell.selected {
+  background-color: #e3f2fd;
+  border-color: #2196f3;
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+}
+
+.sudoku-cell.original {
+  background-color: #f5f5f5;
+  color: #333;
+  font-weight: 900;
+}
+
+.sudoku-cell.wrong {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.sudoku-cell.pencil-mode {
+  background-color: #fff3e0;
+}
+
+.pencil-marks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  font-size: 8px;
+  color: #666;
+  pointer-events: none;
+}
+
+.pencil-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+}
+
+.available-numbers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  font-size: 8px;
+  color: #4caf50;
+  pointer-events: none;
+}
+
+.available-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+}

@@ -1,0 +1,251 @@
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Sudoku Game Styles */
+.sudoku-game {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.game-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.game-header h1 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.game-stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.game-stats > div {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.game-content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.game-board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sudoku-board {
+  display: inline-block;
+  border: 3px solid #333;
+  background-color: #333;
+  padding: 3px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sudoku-row {
+  display: flex;
+}
+
+.sudoku-cell {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.sudoku-cell:hover {
+  background-color: #f0f0f0;
+}
+
+.sudoku-cell.selected {
+  background-color: #e3f2fd;
+  border-color: #2196f3;
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+}
+
+.sudoku-cell.original {
+  background-color: #f5f5f5;
+  color: #333;
+  font-weight: 900;
+}
+
+.sudoku-cell.wrong {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+/* Border styling for 3x3 boxes */
+.sudoku-cell.top-border {
+  border-top: 3px solid #333;
+}
+
+.sudoku-cell.bottom-border {
+  border-bottom: 3px solid #333;
+}
+
+.sudoku-cell.left-border {
+  border-left: 3px solid #333;
+}
+
+.sudoku-cell.right-border {
+  border-right: 3px solid #333;
+}
+
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 280px;
+}
+
+.control-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.control-section h3 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 5px;
+}
+
+.difficulty-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.difficulty-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+}
+
+.difficulty-btn.easy {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.difficulty-btn.easy:hover {
+  background-color: #c3e6cb;
+}
+
+.difficulty-btn.medium {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.difficulty-btn.medium:hover {
+  background-color: #ffeaa7;
+}
+
+.difficulty-btn.hard {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.difficulty-btn.hard:hover {
+  background-color: #f5c6cb;
+}
+
+.control-section p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .sudoku-game {
+    padding: 15px;
+  }
+  
+  .game-header h1 {
+    font-size: 2rem;
+  }
+  
+  .game-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .game-board-container {
+    padding: 15px;
+  }
+  
+  .game-sidebar {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sudoku-cell {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .difficulty-buttons {
+    flex-direction: column;
+  }
+}
