@@ -13,6 +13,7 @@ interface SudokuCellProps {
   onPencilToggle: (row: number, col: number) => void;
   showAvailableNumbers: boolean;
   availableNumbers: number[];
+  moveOwner?: 'human' | 'ai';
 }
 
 const SudokuCell: React.FC<SudokuCellProps> = ({
@@ -25,7 +26,8 @@ const SudokuCell: React.FC<SudokuCellProps> = ({
   onNumberInput,
   onPencilToggle,
   showAvailableNumbers,
-  availableNumbers
+  availableNumbers,
+  moveOwner
 }) => {
   const handleClick = () => {
     onCellClick(row, col);
@@ -34,6 +36,7 @@ const SudokuCell: React.FC<SudokuCellProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (cell.isOriginal) return;
 
+    // Keep keyboard support for desktop users
     if (e.key >= '1' && e.key <= '9') {
       const num = parseInt(e.key);
       if (cell.isPencilMode) {
@@ -62,6 +65,15 @@ const SudokuCell: React.FC<SudokuCellProps> = ({
     if (cell.isWrong) className += ' wrong';
     if (isSelected) className += ' selected';
     if (isHighlighted) className += ' highlighted';
+    
+    // Add move owner styling
+    if (moveOwner === 'human') className += ' human-move';
+    if (moveOwner === 'ai') className += ' ai-move';
+    
+    // Debug logging
+    if (moveOwner) {
+      console.log(`Cell ${row}-${col} has moveOwner: ${moveOwner}, className: ${className}`);
+    }
     
     // Add box border styling
     if (row % 3 === 0) className += ' top-border';

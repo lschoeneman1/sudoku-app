@@ -4,6 +4,7 @@ export interface Cell {
   isWrong: boolean;
   pencilMarks: number[];
   isPencilMode: boolean;
+  moveOwner?: 'human' | 'ai';
 }
 
 export interface GameState {

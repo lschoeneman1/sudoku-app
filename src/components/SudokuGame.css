@@ -73,10 +73,25 @@
   
   .game-board-container {
     padding: 15px;
+    flex-direction: column;
+    align-items: center;
   }
   
   .game-sidebar {
     flex-direction: column;
     align-items: center;
+  }
+}
+
+/* Mobile-first layout adjustments */
+@media (max-width: 480px) {
+  .game-board-container {
+    padding: 10px;
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  .game-content {
+    gap: 20px;
   }
 }

@@ -26,3 +26,18 @@
 .sudoku-cell:first-child {
   border-left: 3px solid #333;
 }
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .sudoku-board {
+    max-width: 100%;
+    padding: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sudoku-board {
+    padding: 1px;
+    border-width: 2px;
+  }
+}

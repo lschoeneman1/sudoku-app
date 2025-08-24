@@ -4,6 +4,7 @@ import { generateSolvedBoard, createCellBoard, isBoardComplete } from '../utils/
 import SudokuBoard from './SudokuBoard';
 import GameControls from './GameControls';
 import GameStats from './GameStats';
+import NumberPad from './NumberPad';
 import './SudokuGame.css';
 
 // Create puzzle by removing cells from solved board based on difficulty
@@ -286,6 +287,15 @@ const SudokuGame: React.FC = () => {
             onPencilToggle={handlePencilToggle}
             showAvailableNumbers={settings.showAvailableNumbers}
           />
+          
+          {selectedCell && (
+            <NumberPad
+              onNumberInput={(value) => handleNumberInput(selectedCell.row, selectedCell.col, value)}
+              onPencilToggle={() => handlePencilToggle(selectedCell.row, selectedCell.col)}
+              pencilMode={gameState.board[selectedCell.row][selectedCell.col].isPencilMode}
+              onClear={() => handleNumberInput(selectedCell.row, selectedCell.col, null)}
+            />
+          )}
         </div>
         
         <div className="game-sidebar">

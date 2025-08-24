@@ -1,0 +1,116 @@
+.number-pad {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 0;
+}
+
+.number-pad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.number-button {
+  background: #ffffff;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px 6px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.number-button:hover {
+  background: #f1f3f4;
+  border-color: #adb5bd;
+  transform: translateY(-1px);
+}
+
+.number-button:active {
+  transform: translateY(0);
+  background: #e9ecef;
+}
+
+.number-pad-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.control-button {
+  flex: 1;
+  background: #ffffff;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-button:hover {
+  background: #f1f3f4;
+  border-color: #adb5bd;
+}
+
+.control-button.active {
+  background: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.clear-button {
+  color: #dc3545;
+}
+
+.clear-button:hover {
+  background: #f8d7da;
+  border-color: #dc3545;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .number-pad {
+    padding: 12px;
+    margin-top: 12px;
+  }
+  
+  .number-button {
+    padding: 20px 12px;
+    font-size: 24px;
+    min-height: 56px;
+  }
+  
+  .control-button {
+    padding: 16px;
+    font-size: 20px;
+    min-height: 48px;
+  }
+}
+
+/* Touch-friendly sizing for mobile */
+@media (max-width: 480px) {
+  .number-button {
+    padding: 24px 16px;
+    font-size: 28px;
+    min-height: 64px;
+  }
+  
+  .control-button {
+    padding: 20px;
+    font-size: 22px;
+    min-height: 56px;
+  }
+}

@@ -2,12 +2,12 @@
 //
 import React from 'react';
 import './App.css';
-import SudokuGame from './components/SudokuGame';
-let x = 1
+import HybridGame from './components/HybridGame';
+
 const App: React.FC = () => {
   return (
     <div className="App">
-      <SudokuGame />
+      <HybridGame />
     </div>
   );
 };

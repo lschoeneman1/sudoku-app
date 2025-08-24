@@ -11,6 +11,7 @@ interface SudokuBoardProps {
   onNumberInput: (row: number, col: number, value: number | null) => void;
   onPencilToggle: (row: number, col: number) => void;
   showAvailableNumbers: boolean;
+  moveOwners?: { [key: string]: 'human' | 'ai' };
 }
 
 const SudokuBoard: React.FC<SudokuBoardProps> = ({
@@ -19,7 +20,8 @@ const SudokuBoard: React.FC<SudokuBoardProps> = ({
   onCellClick,
   onNumberInput,
   onPencilToggle,
-  showAvailableNumbers
+  showAvailableNumbers,
+  moveOwners
 }) => {
   const isHighlighted = (row: number, col: number): boolean => {
     if (!selectedCell) return false;
@@ -46,6 +48,17 @@ const SudokuBoard: React.FC<SudokuBoardProps> = ({
     return getBoxAvailableNumbers(board, boxRow, boxCol);
   };
 
+  // Debug logging
+  console.log('SudokuBoard render - moveOwners:', moveOwners);
+  console.log('SudokuBoard render - board cells with values:', board.map((row, rowIndex) => 
+    row.map((cell, colIndex) => ({ 
+      row: rowIndex, 
+      col: colIndex, 
+      value: cell.value, 
+      moveOwner: moveOwners ? moveOwners[`${rowIndex}-${colIndex}`] : undefined 
+    }))
+  ));
+
   return (
     <div className="sudoku-board">
       {board.map((row, rowIndex) => (
@@ -69,6 +82,7 @@ const SudokuBoard: React.FC<SudokuBoardProps> = ({
                   ? getBoxAvailableNumbersForCell(rowIndex, colIndex)
                   : getAvailableNumbersForCell(rowIndex, colIndex)
               }
+              moveOwner={moveOwners ? moveOwners[`${rowIndex}-${colIndex}`] : undefined}
             />
           ))}
         </div>

@@ -112,7 +112,8 @@ export const createCellBoard = (puzzle: number[][]): Cell[][] => {
       isOriginal: cell !== 0,
       isWrong: false,
       pencilMarks: [],
-      isPencilMode: false
+      isPencilMode: false,
+      moveOwner: undefined
     }))
   );
 };
