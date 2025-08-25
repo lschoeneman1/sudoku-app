@@ -7,33 +7,34 @@
 
 .game-header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .game-header h1 {
   color: #333;
-  margin-bottom: 15px;
-  font-size: 1.8rem;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
 }
 
 .game-content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 }
 
 .game-boards-container {
   display: flex;
-  gap: 20px;
+  gap: 30px;
   justify-content: center;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .sudoku-section,
 .connect-four-section {
   flex: 1;
-  min-width: 400px;
-  max-width: 500px;
+  min-width: 350px;
+  max-width: 450px;
 }
 
 .sudoku-section h3,

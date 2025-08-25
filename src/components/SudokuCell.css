@@ -1,13 +1,13 @@
 .sudoku-cell {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border: 1px solid #ccc;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   background-color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   transition: all 0.2s ease;
   user-select: none;
@@ -37,15 +37,17 @@
 }
 
 .sudoku-cell.human-move {
-  background-color: #e8f5e8;
-  color: #2e7d32;
-  border: 2px solid #4caf50;
+  background-color: #4caf50;
+  color: white;
+  border: 2px solid #2e7d32;
+  font-weight: bold;
 }
 
 .sudoku-cell.ai-move {
-  background-color: #e3f2fd;
-  color: #1565c0;
-  border: 2px solid #42a5f5;
+  background-color: #ff5722;
+  color: white;
+  border: 2px solid #d84315;
+  font-weight: bold;
 }
 
 .sudoku-cell.pencil-mode {

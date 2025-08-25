@@ -225,6 +225,7 @@ const HybridGame: React.FC = () => {
     const col = (value - 1) % 7;
     
     console.log('Making Connect Four move: row', sudokuRow, 'col', sudokuCol, 'value', value, '-> CF col', col);
+    console.log('Current player for Connect Four:', currentPlayer);
     
     // Find the lowest empty row in the column
     let piecePlaced = false;
@@ -243,8 +244,8 @@ const HybridGame: React.FC = () => {
           console.log('Connect Four winner:', currentPlayer);
         }
         
-                 // Switch players
-         setCurrentPlayer(currentPlayer === 'human' ? 'ai' : 'human');
+        // Switch players AFTER placing the piece
+        setCurrentPlayer(currentPlayer === 'human' ? 'ai' : 'human');
         piecePlaced = true;
         break;
       }
@@ -317,7 +318,7 @@ const HybridGame: React.FC = () => {
     setMoveHistory(newMoveHistory);
     setCurrentMoveIndex(newMoveHistory.length - 1);
 
-    // Update game state
+    // Update game state FIRST to ensure the board is updated
     setGameState(prev => {
       const newState = { ...prev, board: newBoard };
       
@@ -328,22 +329,31 @@ const HybridGame: React.FC = () => {
       
       return newState;
     });
+    
+    // Ensure the board state is properly set before proceeding
+    console.log('Board state updated with new value:', value, 'at position:', row, col);
 
                   // Make Connect Four move ONLY for correct Sudoku moves
       if (value !== null && solvedBoard[row][col] === value) {
+        console.log('CORRECT move - placing Connect Four piece');
+        console.log('Sudoku value:', value, 'Expected value:', solvedBoard[row][col]);
         makeConnectFourMove(row, col, value);
+      } else {
+        // For incorrect moves, just log
+        console.log('Incorrect move - no Connect Four piece placed');
+        console.log('Sudoku value:', value, 'Expected value:', solvedBoard[row][col]);
       }
-
-     // Switch to AI turn
-     setIsAITurn(true);
-     aiTurnRef.current = true;
-     console.log('Switching to AI turn...');
-     console.log('isAITurn state set to true, scheduling AI move in 1 second...');
-     setTimeout(() => {
-       console.log('AI making move...');
-       console.log('Current aiTurnRef state:', aiTurnRef.current);
-       makeAIMove();
-     }, 1000);
+      
+      // Switch to AI turn after ANY move (correct or incorrect)
+      setIsAITurn(true);
+      aiTurnRef.current = true;
+      console.log('Switching to AI turn...');
+      console.log('isAITurn state set to true, scheduling AI move in 1 second...');
+      setTimeout(() => {
+        console.log('AI making move...');
+        console.log('Current aiTurnRef state:', aiTurnRef.current);
+        makeAIMove();
+      }, 1000);
   }, [gameState.board, settings.pencilMode, moveHistory, currentMoveIndex, solvedBoard, makeConnectFourMove]);
 
   const makeAIMove = useCallback(() => {
@@ -371,55 +381,56 @@ const HybridGame: React.FC = () => {
         
         console.log('AI placing', correctValue, 'at', randomCell.row, randomCell.col);
         
-                 // AI makes the move
-         const newBoard = gameState.board.map(r => [...r]);
-         newBoard[randomCell.row][randomCell.col] = {
-           ...newBoard[randomCell.row][randomCell.col],
-           value: correctValue,
-           pencilMarks: [],
-           isWrong: false,
-           moveOwner: 'ai' // Add move owner directly to cell
-         };
-         
-         console.log('Set moveOwner to AI for cell:', randomCell.row, randomCell.col, newBoard[randomCell.row][randomCell.col]);
+        // AI makes the move - use functional update to avoid race conditions
+        setGameState(prev => {
+          const newBoard = prev.board.map(r => [...r]);
+          newBoard[randomCell.row][randomCell.col] = {
+            ...newBoard[randomCell.row][randomCell.col],
+            value: correctValue,
+            pencilMarks: [],
+            isWrong: false,
+            moveOwner: 'ai' // Add move owner directly to cell
+          };
+          
+          console.log('Set moveOwner to AI for cell:', randomCell.row, randomCell.col, newBoard[randomCell.row][randomCell.col]);
+          
+          return { ...prev, board: newBoard };
+        });
+        
+        // Update moveOwners
+        const newMoveOwners: { [key: string]: 'human' | 'ai' } = {
+          ...moveOwners,
+          [`${randomCell.row}-${randomCell.col}`]: 'ai'
+        };
+        
+        console.log('Updated moveOwners for AI:', newMoveOwners);
+        setMoveOwners(newMoveOwners);
 
-         // Update both board and moveOwners together in a single batch
-         const newMoveOwners: { [key: string]: 'human' | 'ai' } = {
-           ...moveOwners,
-           [`${randomCell.row}-${randomCell.col}`]: 'ai'
-         };
-         
-         console.log('Updated moveOwners for AI:', newMoveOwners);
-         
-         // Update both states together
-         setGameState(prev => ({ ...prev, board: newBoard }));
-         setMoveOwners(newMoveOwners);
+        // Make Connect Four move for AI (AI always makes correct moves)
+        makeConnectFourMove(randomCell.row, randomCell.col, correctValue);
 
-                 // Make Connect Four move for AI (AI always makes correct moves)
-         makeConnectFourMove(randomCell.row, randomCell.col, correctValue);
-
-                 // Switch back to human turn
-         setIsAITurn(false);
-         aiTurnRef.current = false;
-         setSelectedCell(null);
-         console.log('AI turn completed, switching to human');
-         console.log('Final moveOwners state after AI move:', moveOwners);
-         console.log('=== AI MOVE END ===');
-             } else {
-         // No more moves available - end AI turn
-         console.log('No empty cells, ending AI turn');
-         setIsAITurn(false);
-         aiTurnRef.current = false;
-         setSelectedCell(null);
-       }
-     } else {
-       // AI turn ended or game complete - reset state
-       console.log('AI turn conditions not met, resetting state');
-       setIsAITurn(false);
-       aiTurnRef.current = false;
-       setSelectedCell(null);
-     }
-  }, [isAITurn, gameState.board, gameState.isComplete, solvedBoard, makeConnectFourMove, moveOwners]);
+        // Switch back to human turn
+        setIsAITurn(false);
+        aiTurnRef.current = false;
+        setSelectedCell(null);
+        console.log('AI turn completed, switching to human');
+        console.log('Final moveOwners state after AI move:', newMoveOwners);
+        console.log('=== AI MOVE END ===');
+      } else {
+        // No more moves available - end AI turn
+        console.log('No empty cells, ending AI turn');
+        setIsAITurn(false);
+        aiTurnRef.current = false;
+        setSelectedCell(null);
+      }
+    } else {
+      // AI turn ended or game complete - reset state
+      console.log('AI turn conditions not met, resetting state');
+      setIsAITurn(false);
+      aiTurnRef.current = false;
+      setSelectedCell(null);
+    }
+  }, [isAITurn, gameState.isComplete, solvedBoard, makeConnectFourMove, moveOwners]);
 
   const handlePencilToggle = useCallback((row: number, col: number) => {
     if (gameState.board[row][col].isOriginal || isAITurn) return;

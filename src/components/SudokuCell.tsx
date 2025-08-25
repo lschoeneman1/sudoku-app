@@ -40,14 +40,10 @@ const SudokuCell: React.FC<SudokuCellProps> = ({
     if (e.key >= '1' && e.key <= '9') {
       const num = parseInt(e.key);
       if (cell.isPencilMode) {
-        // Toggle pencil mark
-        const newPencilMarks = cell.pencilMarks.includes(num)
-          ? cell.pencilMarks.filter(mark => mark !== num)
-          : [...cell.pencilMarks, num];
-        
-        // This would need to be handled by the parent component
-        // For now, we'll just call onNumberInput with null to clear the cell
-        onNumberInput(row, col, null);
+        // Toggle pencil mark - call pencil toggle to switch mode first
+        onPencilToggle(row, col);
+        // Then input the number (which will now be in regular mode)
+        onNumberInput(row, col, num);
       } else {
         onNumberInput(row, col, num);
       }
